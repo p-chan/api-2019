@@ -6,6 +6,12 @@
     "rootDir": "./src",
     "strict": true,
     "baseUrl": "./",
+    "paths": {
+      "@controllers/*": ["./src/controllers/*"],
+      "@data/*": ["./src/data/*"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@utilities/*": ["./src/utilities/*"]
+    },
     "typeRoots": ["./node_modules/@types", "./src/@types"],
     "esModuleInterop": true,
     "resolveJsonModule": true

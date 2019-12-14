@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
-import { notFoundHandler, errorHandler } from './middlewares'
+import { notFoundHandler, errorHandler } from '@middlewares/index'
 import { router } from './router'
 
 if (process.env.NODE_ENV !== 'production') dotenv.config()
