@@ -1,6 +1,10 @@
 {
   "name": "p-chan-api",
   "version": 2,
+  "env": {
+    "MONEYFORWARD_EMAIL": "@p-chan-api-moneyforward-email",
+    "MONEYFORWARD_PASSWORD": "@p-chan-api-moneyforward-password"
+  },
   "builds": [{ "src": "dist/**/*", "use": "@now/node" }],
   "routes": [{ "src": "/(.*)", "dest": "/dist/index.js" }]
 }

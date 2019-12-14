@@ -14,10 +14,13 @@
   "dependencies": {
     "@hapi/boom": "^8.0.1",
     "body-parser": "^1.19.0",
+    "chrome-aws-lambda": "^2.0.1",
     "express": "^4.17.1",
     "express-promise-router": "^3.0.3",
     "helmet": "^3.21.2",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "puppeteer-core": "^2.0.0",
+    "user-agents": "^1.0.470"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.1",
@@ -25,8 +28,11 @@
     "@types/helmet": "0.0.45",
     "@types/morgan": "^1.7.37",
     "@types/node": "^12.12.16",
+    "@types/puppeteer-core": "^2.0.0",
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.1",
     "prettier": "^1.19.1",
+    "puppeteer": "^2.0.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.3"
   },

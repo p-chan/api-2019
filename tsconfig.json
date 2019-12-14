@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es2018",
     "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "baseUrl": "./",
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
     "esModuleInterop": true,
     "resolveJsonModule": true
   }
