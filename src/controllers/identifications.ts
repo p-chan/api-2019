@@ -1,6 +1,6 @@
 import express from 'express'
 
-import identifications from "../../data/identifications.json";
+import identifications from '../data/identifications.json'
 
 const index = async (
   req: express.Request,
