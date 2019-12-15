@@ -1,0 +1,23 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "UpdateField",
+      "model": "Assets",
+      "field": "deposit",
+      "newName": "currency"
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "Assets",
+      "field": "equity",
+      "newName": "stockSpot"
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "Assets",
+      "field": "mutualFund",
+      "newName": "investmentTrust"
+    }
+  ]
+}

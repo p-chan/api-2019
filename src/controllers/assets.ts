@@ -3,6 +3,7 @@ import puppeteer from 'puppeteer'
 import Boom from '@hapi/boom'
 import UserAgent from 'user-agents'
 import { Photon } from '@prisma/photon'
+import { assetsSerializer } from '../serializers/index'
 import { launchBrowser, closeBrowser } from '../utilities/index'
 
 const index = async (
@@ -14,7 +15,7 @@ const index = async (
 
   await photon.connect()
 
-  const assets = await photon.assets.findMany({
+  const latestAssets = await photon.assets.findMany({
     orderBy: {
       createdAt: 'desc'
     },
@@ -23,8 +24,10 @@ const index = async (
 
   await photon.disconnect()
 
+  const packedAssets = await assetsSerializer.pack(latestAssets[0])
+
   res.json({
-    assets: {}
+    ...packedAssets
   })
 }
 
@@ -104,11 +107,11 @@ const update = async (
 
     await photon.connect()
 
-    const assets = await photon.assets.create({
+    const createdAssets = await photon.assets.create({
       data: {
-        deposit: deposit,
-        equity: equity,
-        mutualFund: mutualFund,
+        currency: deposit,
+        stockSpot: equity,
+        investmentTrust: mutualFund,
         pension: pension,
         point: point
       }
@@ -116,14 +119,10 @@ const update = async (
 
     await photon.disconnect()
 
+    const packedAssets = await assetsSerializer.pack(createdAssets)
+
     res.json({
-      assets: {
-        deposit: assets.deposit,
-        equity: assets.equity,
-        mutual_fund: assets.mutualFund,
-        pension: assets.pension,
-        point: assets.point
-      }
+      ...packedAssets
     })
   } catch (error) {
     console.error(error)

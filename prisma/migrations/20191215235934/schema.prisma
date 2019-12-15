@@ -4,7 +4,7 @@ generator photon {
 
 datasource db {
   provider = "mysql"
-  url      = env("MYSQL_URL")
+  url = "***"
 }
 
 model Assets {
