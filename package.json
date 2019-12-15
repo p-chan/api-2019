@@ -40,5 +40,8 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.7.3"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "private": true
 }
