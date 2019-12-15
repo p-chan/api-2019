@@ -1,0 +1,19 @@
+generator photon {
+  provider = "photonjs"
+}
+
+datasource db {
+  provider = "mysql"
+  url = "***"
+}
+
+model Assets {
+  id         String   @default(uuid()) @id
+  deposit    Int
+  equity     Int
+  mutualFund Int
+  pension    Int
+  point      Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}

@@ -7,12 +7,14 @@
     "start": "node .",
     "build": "tsc",
     "dev": "nodemon --exec ./node_modules/.bin/ts-node -- -r tsconfig-paths/register ./src/index.ts",
-    "format": "prettier --write \"./src/**/*.ts\""
+    "format": "prettier --write \"./src/**/*.ts\"",
+    "postinstall": "prisma2 generate"
   },
   "author": "P-Chan",
   "license": "MIT",
   "dependencies": {
     "@hapi/boom": "^8.0.1",
+    "@prisma/photon": "^2.0.0-preview018.2",
     "body-parser": "^1.19.0",
     "chrome-aws-lambda": "^2.0.1",
     "express": "^4.17.1",
@@ -32,6 +34,7 @@
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.1",
     "prettier": "^1.19.1",
+    "prisma2": "^2.0.0-preview018.2",
     "puppeteer": "^2.0.0",
     "ts-node": "^8.5.4",
     "tsconfig-paths": "^3.9.0",

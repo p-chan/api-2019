@@ -2,8 +2,14 @@
   "name": "p-chan-api",
   "version": 2,
   "env": {
+    "MYSQL_URL": "@p-chan-api-mysql-url",
     "MONEYFORWARD_EMAIL": "@p-chan-api-moneyforward-email",
     "MONEYFORWARD_PASSWORD": "@p-chan-api-moneyforward-password"
+  },
+  "build": {
+    "env": {
+      "MYSQL_URL": "@p-chan-api-mysql-url"
+    }
   },
   "builds": [{ "src": "dist/**/*", "use": "@now/node" }],
   "routes": [{ "src": "/(.*)", "dest": "/dist/index.js" }]

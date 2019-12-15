@@ -2,6 +2,7 @@ import express from 'express'
 import puppeteer from 'puppeteer'
 import Boom from '@hapi/boom'
 import UserAgent from 'user-agents'
+import { Photon } from '@prisma/photon'
 import { launchBrowser, closeBrowser } from '../utilities/index'
 
 const index = async (
@@ -9,6 +10,19 @@ const index = async (
   res: express.Response,
   next: express.NextFunction
 ) => {
+  const photon = new Photon()
+
+  await photon.connect()
+
+  const assets = await photon.assets.findMany({
+    orderBy: {
+      createdAt: 'desc'
+    },
+    first: 1
+  })
+
+  await photon.disconnect()
+
   res.json({
     assets: {}
   })
@@ -30,7 +44,7 @@ const update = async (
 
   const getAmountFromPage = async (page: puppeteer.Page, selector: string) => {
     return await page.$eval(selector, element => {
-      if (!element.textContent) return
+      if (!element.textContent) return 0
 
       return Number(element.textContent.replace(/[合計：|,|円|\n]/g, ''))
     })
@@ -86,13 +100,29 @@ const update = async (
 
     await closeBrowser(browser)
 
-    res.json({
-      assets: {
+    const photon = new Photon()
+
+    await photon.connect()
+
+    const assets = await photon.assets.create({
+      data: {
         deposit: deposit,
         equity: equity,
-        mutual_fund: mutualFund,
+        mutualFund: mutualFund,
         pension: pension,
         point: point
+      }
+    })
+
+    await photon.disconnect()
+
+    res.json({
+      assets: {
+        deposit: assets.deposit,
+        equity: assets.equity,
+        mutual_fund: assets.mutualFund,
+        pension: assets.pension,
+        point: assets.point
       }
     })
   } catch (error) {
