@@ -2,7 +2,7 @@ import express from 'express'
 import puppeteer from 'puppeteer'
 import Boom from '@hapi/boom'
 import UserAgent from 'user-agents'
-import { launchBrowser, closeBrowser } from '@utilities/index'
+import { launchBrowser, closeBrowser } from '../utilities/index'
 
 const index = async (
   req: express.Request,

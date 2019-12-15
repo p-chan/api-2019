@@ -1,6 +1,9 @@
 import Router from 'express-promise-router'
 
-import { assetsController, identificationsController } from '@controllers/index'
+import {
+  assetsController,
+  identificationsController
+} from './controllers/index'
 
 const router = Router()
 
