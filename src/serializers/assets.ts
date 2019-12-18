@@ -7,11 +7,33 @@ export const pack = async (assets: Assets) => {
 export const packMany = async (assets: Assets[]) => {
   return assets.map(value => {
     return {
-      currency: value.currency,
-      stock_spot: value.stockSpot,
-      investment_trust: value.investmentTrust,
-      pension: value.pension,
-      point: value.point
+      assets: [
+        {
+          type: 'currency',
+          amount: value.currency,
+          currency: 'JPY'
+        },
+        {
+          type: 'stock_spot',
+          amount: value.stockSpot,
+          currency: 'JPY'
+        },
+        {
+          type: 'investment_trust',
+          amount: value.investmentTrust,
+          currency: 'JPY'
+        },
+        {
+          type: 'pension',
+          amount: value.pension,
+          currency: 'JPY'
+        },
+        {
+          type: 'point',
+          amount: value.point,
+          currency: 'JPY'
+        }
+      ]
     }
   })
 }
