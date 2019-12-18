@@ -1,0 +1,36 @@
+{
+  "accounts": [
+    {
+      "service_name": "twitter",
+      "id": "p1ch_jp"
+    },
+    {
+      "service_name": "facebook",
+      "id": "shintaro.p.fujiwara"
+    },
+    {
+      "service_name": "github",
+      "id": "p-chan"
+    },
+    {
+      "service_name": "npm",
+      "id": "p-chan"
+    },
+    {
+      "service_name": "qiita",
+      "id": "0x50"
+    },
+    {
+      "service_name": "annict",
+      "id": "p"
+    },
+    {
+      "service_name": "instagram",
+      "id": "p1ch_jp"
+    },
+    {
+      "service_name": "discord",
+      "id": "p-chan#4300"
+    }
+  ]
+}

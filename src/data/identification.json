@@ -1,0 +1,19 @@
+{
+  "identification": {
+    "first_name": "Shintaro",
+    "last_name": "Fujiwara",
+    "handle_name": "P-Chan",
+    "sex": "male",
+    "birth_date": "1996-06-16T00:00:00+09:00",
+    "address": {
+      "street": "2-6-2 Mishuku, #2-2 Ikeda Apartment",
+      "city": "Setagaya",
+      "state": "Tokyo",
+      "zip_code": "154-0005",
+      "country": "Japan"
+    },
+    "phone": "+8190-9212-5739",
+    "email": "hello@0x50.io",
+    "website": "https://p-chan.im/"
+  }
+}

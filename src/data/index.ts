@@ -1,3 +1,4 @@
-import identifications from './identifications.json'
+import accounts from './accounts.json'
+import identification from './identification.json'
 
-export { identifications }
+export { accounts, identification }

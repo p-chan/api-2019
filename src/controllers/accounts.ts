@@ -1,13 +1,13 @@
 import express from 'express'
 
-import { identification } from '../data/index'
+import { accounts } from '../data/index'
 
 const index = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
-  res.json(identification)
+  res.json(accounts)
 }
 
 const controller = {
