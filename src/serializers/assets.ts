@@ -1,4 +1,5 @@
 import { Assets } from '@prisma/photon'
+import { createDayjs } from '../utilities'
 
 export const pack = async (assets: Assets) => {
   return (await packMany([assets]))[0]
@@ -33,7 +34,8 @@ export const packMany = async (assets: Assets[]) => {
           amount: value.point,
           currency: 'JPY'
         }
-      ]
+      ],
+      updated_at: createDayjs(value.createdAt.toString()).format()
     }
   })
 }
