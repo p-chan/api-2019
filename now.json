@@ -11,6 +11,19 @@
       "MYSQL_URL": "@p-chan-api-mysql-url"
     }
   },
-  "builds": [{ "src": "dist/**/*", "use": "@now/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "/dist/index.js" }]
+  "builds": [
+    { "src": "dist/**/*", "use": "@now/node" },
+    { "src": "public/**/*", "use": "@now/static" }
+  ],
+  "routes": [
+    {
+      "src": "/docs",
+      "dest": "/public/docs/index.html"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/public/favicon.ico"
+    },
+    { "src": "/(.*)", "dest": "/dist/index.js" }
+  ]
 }
