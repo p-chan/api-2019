@@ -29,12 +29,6 @@ paths:
                       $ref: '#/components/schemas/accounts'
                 required:
                   - accounts
-              examples: {}
-            application/xml:
-              schema:
-                type: object
-                properties: {}
-          headers: {}
       operationId: get-accounts
       description: 全てのアカウント情報を取得します。
   /assets:
