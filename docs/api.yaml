@@ -1,0 +1,239 @@
+openapi: 3.0.0
+info:
+  title: P-Chan API
+  version: 1.0.0
+  description: P-Chan の API です。
+  contact:
+    name: P-Chan
+    url: 'https://p-chan.im/'
+    email: hello@0x50.io
+servers:
+  - url: 'https://api.p-chan.im'
+paths:
+  /accounts:
+    get:
+      summary: 全てのアカウント情報を取得する
+      tags:
+        - accounts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/accounts'
+                required:
+                  - accounts
+      operationId: get-accounts
+      description: 全てのアカウント情報を取得します。
+  /assets:
+    get:
+      summary: 全ての資産情報を取得する
+      tags:
+        - assets
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/assets'
+                  updated_at:
+                    type: string
+                    example: '2019-12-20T04:18:44+09:00'
+                    description: 資産の最終更新日
+                required:
+                  - assets
+                  - updated_at
+      operationId: get-assets
+      description: 全ての資産情報を取得します。
+    patch:
+      summary: 全ての資産情報を更新する
+      tags:
+        - assets
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/assets'
+                required:
+                  - assets
+      operationId: patch-assets
+      description: 全ての資産情報を更新します。
+  /identification:
+    get:
+      summary: 識別情報を取得する
+      tags:
+        - identification
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  identification:
+                    $ref: '#/components/schemas/identification'
+                required:
+                  - identification
+      operationId: get-identification
+      description: 識別情報を取得します。
+components:
+  securitySchemes: {}
+  schemas:
+    identification:
+      title: 識別
+      type: object
+      x-tags:
+        - identification
+      description: ''
+      x-examples: {}
+      properties:
+        first_name:
+          type: string
+          default: Shintaro
+          description: 名
+        last_name:
+          type: string
+          default: Fujiwara
+          description: 姓
+        handle_name:
+          type: string
+          default: P-Chan
+          description: ハンドルネーム
+        sex:
+          type: string
+          default: male
+          enum:
+            - male
+            - female
+          description: 性別
+        birth_date:
+          type: string
+          default: '1996-06-16T00:00:00+09:00'
+          description: 生年月日
+        address:
+          type: object
+          required:
+            - street
+            - city
+            - state
+            - zip_code
+            - country
+          description: 住所
+          properties:
+            street:
+              type: string
+              default: '2-6-2 Mishuku, #2-2 Ikeda Apartment'
+              description: 通り
+            city:
+              type: string
+              default: Setagaya
+              description: 市区町村
+            state:
+              type: string
+              default: Tokyo
+              description: "都道府県\b"
+            zip_code:
+              type: string
+              default: 154-0005
+              description: 郵便番号
+            country:
+              type: string
+              default: Japan
+              description: 国
+        phone:
+          type: string
+          default: +8190-9212-5739
+          description: 電話番号
+        email:
+          type: string
+          default: hello@0x50.io
+          format: email
+          description: メールアドレス
+        website:
+          type: string
+          default: 'https://p-chan.im/'
+          format: uri
+          description: ウェブサイトの URL
+      required:
+        - first_name
+        - last_name
+        - handle_name
+        - sex
+        - birth_date
+        - address
+        - phone
+        - email
+        - website
+    accounts:
+      title: アカウント
+      type: object
+      x-tags:
+        - accounts
+      description: ''
+      properties:
+        service_name:
+          type: string
+          example: Twitter
+          description: サービスの名前
+        id:
+          type: string
+          example: p1ch_jp
+          description: アカウントの ID
+      required:
+        - service_name
+        - id
+    assets:
+      title: 資産
+      type: object
+      x-tags:
+        - assets
+      properties:
+        type:
+          type: string
+          enum:
+            - currency
+            - stock_spot
+            - investment_trust
+            - pension
+            - point
+          example: currency
+          description: 資産の種類
+        amount:
+          type: number
+          example: 114514
+          description: 量
+        currency:
+          type: string
+          default: JPY
+          enum:
+            - JPY
+          example: JPY
+          description: 通貨の種類
+      required:
+        - type
+        - amount
+        - currency
+tags:
+  - name: accounts
+  - name: assets
+  - name: identification
