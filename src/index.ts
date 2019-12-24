@@ -1,6 +1,7 @@
 import express from 'express'
 import http from 'http'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
@@ -14,12 +15,14 @@ const port = process.env.PORT || 3000
 
 app.use(helmet())
 
+app.use(cors())
+
 app.use(morgan('dev'))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use(express.static('public'));
+app.use(express.static('public'))
 
 app.use('/', router)
 
