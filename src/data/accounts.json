@@ -1,15 +1,19 @@
 {
   "accounts": [
     {
-      "service_name": "twitter",
+      "service_name": "Twitter",
       "id": "p1ch_jp"
     },
     {
-      "service_name": "facebook",
+      "service_name": "Facebook",
       "id": "shintaro.p.fujiwara"
     },
     {
-      "service_name": "github",
+      "service_name": "Google",
+      "id": "hello@0x50.io"
+    },
+    {
+      "service_name": "GitHub",
       "id": "p-chan"
     },
     {
@@ -17,20 +21,40 @@
       "id": "p-chan"
     },
     {
-      "service_name": "qiita",
+      "service_name": "Qiita",
       "id": "0x50"
     },
     {
-      "service_name": "annict",
-      "id": "p"
-    },
-    {
-      "service_name": "instagram",
+      "service_name": "Instagram",
       "id": "p1ch_jp"
     },
     {
-      "service_name": "discord",
+      "service_name": "VSCO",
+      "id": "0x50"
+    },
+    {
+      "service_name": "Spotify",
+      "id": "0x50"
+    },
+    {
+      "service_name": "SoundCloud",
+      "id": "p1ch_jp"
+    },
+    {
+      "service_name": "Annict",
+      "id": "p"
+    },
+    {
+      "service_name": "Discord",
       "id": "p-chan#4300"
+    },
+    {
+      "service_name": "Steam",
+      "id": "shintaro_fujiwara"
+    },
+    {
+      "service_name": "Speaker Deck",
+      "id": "p1ch_jp"
     }
   ]
 }
