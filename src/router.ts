@@ -1,3 +1,4 @@
+import cors from 'cors'
 import Router from 'express-promise-router'
 
 import {
@@ -7,6 +8,9 @@ import {
 } from './controllers/index'
 
 const router = Router()
+
+// CORS をサーバーレスに対応する
+router.options('*', cors())
 
 router.get('/accounts', accountsController.index)
 router.get('/assets', assetsController.index)
