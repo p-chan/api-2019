@@ -16,6 +16,5 @@ router.get('/accounts', accountsController.index)
 router.get('/assets', assetsController.index)
 router.patch('/assets', assetsController.update)
 router.get('/identification', identificationsController.index)
-router.get('/id', identificationsController.index)
 
 export { router }
