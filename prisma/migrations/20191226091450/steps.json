@@ -25,11 +25,11 @@
     },
     {
       "tag": "CreateModel",
-      "model": "Assets"
+      "model": "Asset"
     },
     {
       "tag": "CreateField",
-      "model": "Assets",
+      "model": "Asset",
       "field": "id",
       "type": "String",
       "arity": "Required"
@@ -39,7 +39,7 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "Assets",
+          "model": "Asset",
           "field": "id"
         },
         "directive": "default"
@@ -51,7 +51,7 @@
         "tag": "Directive",
         "path": {
           "tag": "Field",
-          "model": "Assets",
+          "model": "Asset",
           "field": "id"
         },
         "directive": "default"
@@ -64,7 +64,7 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "Assets",
+          "model": "Asset",
           "field": "id"
         },
         "directive": "id"
@@ -72,42 +72,42 @@
     },
     {
       "tag": "CreateField",
-      "model": "Assets",
+      "model": "Asset",
       "field": "currency",
       "type": "Int",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Assets",
+      "model": "Asset",
       "field": "stockSpot",
       "type": "Int",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Assets",
+      "model": "Asset",
       "field": "investmentTrust",
       "type": "Int",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Assets",
+      "model": "Asset",
       "field": "pension",
       "type": "Int",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Assets",
+      "model": "Asset",
       "field": "point",
       "type": "Int",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Assets",
+      "model": "Asset",
       "field": "createdAt",
       "type": "DateTime",
       "arity": "Required"
@@ -117,7 +117,7 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "Assets",
+          "model": "Asset",
           "field": "createdAt"
         },
         "directive": "default"
@@ -129,7 +129,7 @@
         "tag": "Directive",
         "path": {
           "tag": "Field",
-          "model": "Assets",
+          "model": "Asset",
           "field": "createdAt"
         },
         "directive": "default"
@@ -139,7 +139,7 @@
     },
     {
       "tag": "CreateField",
-      "model": "Assets",
+      "model": "Asset",
       "field": "updatedAt",
       "type": "DateTime",
       "arity": "Required"
@@ -149,10 +149,30 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "Assets",
+          "model": "Asset",
           "field": "updatedAt"
         },
         "directive": "updatedAt"
+      }
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Model",
+          "model": "Asset",
+          "arguments": [
+            {
+              "name": "",
+              "value": "[updatedAt]"
+            },
+            {
+              "name": "name",
+              "value": "\"idx_asset_updated_at\""
+            }
+          ]
+        },
+        "directive": "index"
       }
     }
   ]

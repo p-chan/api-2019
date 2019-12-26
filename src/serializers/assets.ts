@@ -1,11 +1,11 @@
-import { Assets } from '@prisma/photon'
+import { Asset } from '@prisma/photon'
 import { createDayjs } from '../utilities'
 
-export const pack = async (assets: Assets) => {
+export const pack = async (assets: Asset) => {
   return (await packMany([assets]))[0]
 }
 
-export const packMany = async (assets: Assets[]) => {
+export const packMany = async (assets: Asset[]) => {
   return assets.map(value => {
     return {
       assets: [

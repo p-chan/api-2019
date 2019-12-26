@@ -7,7 +7,7 @@ datasource db {
   url      = env("MYSQL_URL")
 }
 
-model Assets {
+model Asset {
   id              String   @default(uuid()) @id
   currency        Int
   stockSpot       Int
@@ -16,4 +16,6 @@ model Assets {
   point           Int
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  @@index([updatedAt], name: "idx_asset_updated_at")
 }
