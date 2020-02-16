@@ -3,7 +3,7 @@ node_modules
 
 # environment
 .env*
-!.env.example
+!.env.example.yaml
 
 # logs
 *.log
