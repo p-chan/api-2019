@@ -11,7 +11,8 @@
     "clean": "rimraf ./dist",
     "dev": "nodemon --exec ./node_modules/.bin/ts-node -- -r tsconfig-paths/register ./src/index.ts",
     "format": "prettier --write \"./src/**/*.ts\"",
-    "deploy:app": "gcloud app deploy --project p-chan-api"
+    "deploy:app": "gcloud app deploy --project p-chan-api",
+    "deploy:cron": "gcloud app deploy cron.yaml --project p-chan-api"
   },
   "author": "P-Chan",
   "license": "MIT",
