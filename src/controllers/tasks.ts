@@ -1,6 +1,6 @@
 import express from 'express'
 import Boom from '@hapi/boom'
-import { Firestore } from '@google-cloud/firestore'
+import { Firestore, Timestamp } from '@google-cloud/firestore'
 
 import {
   createDayjs,
@@ -9,9 +9,12 @@ import {
 } from '../utilities'
 
 import {
+  AssetDocumentModel,
   createAssetDocumentByYaminabeMoneyforwardAssets,
   upsertDocument
 } from '../models'
+
+import { assetsSerializer } from '../serializers'
 
 const updateAssets = async (
   req: express.Request,
@@ -35,18 +38,44 @@ const updateAssets = async (
 
     const firestore = new Firestore()
 
-    const documentRef = firestore.doc(
+    const assetDocumentRef = firestore.doc(
       `assets/${createDayjs().format('YYYYMMDD')}`
     )
 
     await upsertDocument(
-      documentRef,
+      assetDocumentRef,
       createAssetDocumentByYaminabeMoneyforwardAssets(
         moneyforwardAssetsResponseData
       )
     ).catch(() => {
       throw new Error('Failed upsert assets data to Firestore')
     })
+
+    const assetsCollectionRef = firestore.collection('assets')
+    const latestAssetsQuerySnapshot = await assetsCollectionRef
+      .orderBy('created_at', 'desc')
+      .limit(30)
+      .get()
+
+    const latestAssetDocuments = latestAssetsQuerySnapshot.docs.map(
+      document => <AssetDocumentModel<Timestamp>>document.data()
+    )
+
+    const packedLatestAssetDocuments = await assetsSerializer.packMany(
+      latestAssetDocuments
+    )
+
+    const assetsCacheDocumentRef = firestore.doc(`caches/assets`)
+
+    await assetsCacheDocumentRef
+      .set({
+        json: JSON.stringify({
+          documents: packedLatestAssetDocuments
+        })
+      })
+      .catch(error => {
+        throw new Error(error.message)
+      })
 
     res.json({
       message: 'ok'

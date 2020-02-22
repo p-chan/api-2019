@@ -1,18 +1,18 @@
-import { FieldValue } from '@google-cloud/firestore'
+import { FieldValue, Timestamp } from '@google-cloud/firestore'
 
 import {
   YaminabeMoneyforwardAssets,
   YaminabeMoneyforwardAsset
 } from '../utilities'
 
-export type AssetDocumentModel = {
+export type AssetDocumentModel<T = FieldValue> = {
   currency: number
   stock_spot: number
   investment_trust: number
   pension: number
   point: number
-  created_at: FieldValue
-  updated_at: FieldValue
+  created_at: T
+  updated_at: T
 }
 
 export const createAssetDocumentByYaminabeMoneyforwardAssets = (
