@@ -7,6 +7,8 @@ export const errorHandler = (
   res: express.Response,
   next: express.NextFunction
 ): express.Response => {
+  err.reformat()
+
   return res.status(err.output.statusCode).json(err.output.payload)
 }
 

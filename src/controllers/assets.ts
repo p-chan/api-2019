@@ -1,139 +1,31 @@
 import express from 'express'
-import puppeteer from 'puppeteer'
 import Boom from '@hapi/boom'
-import UserAgent from 'user-agents'
-import { Photon } from '@prisma/photon'
-import { assetsSerializer } from '../serializers/index'
-import { launchBrowser, closeBrowser } from '../utilities/index'
+import { Firestore } from '@google-cloud/firestore'
 
 const index = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
-  const photon = new Photon()
-
-  await photon.connect()
-
-  const latestAssets = await photon.assets.findMany({
-    orderBy: {
-      createdAt: 'desc'
-    },
-    first: 1
-  })
-
-  await photon.disconnect()
-
-  const packedAssets = await assetsSerializer.pack(latestAssets[0])
-
-  res.json({
-    ...packedAssets
-  })
-}
-
-const update = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  if (!process.env.MONEYFORWARD_EMAIL || !process.env.MONEYFORWARD_PASSWORD)
-    return next(Boom.internal())
-
-  const depositSelector = '#portfolio_det_depo h1.heading-small'
-  const equitySelector = '#portfolio_det_eq h1.heading-small'
-  const mutualFundSelector = '#portfolio_det_mf h1.heading-small'
-  const pensionSelector = '#portfolio_det_pns h1.heading-small'
-  const pointSelector = '#portfolio_det_po h1.heading-small'
-
-  const getAmountFromPage = async (page: puppeteer.Page, selector: string) => {
-    return await page.$eval(selector, element => {
-      if (!element.textContent) return 0
-
-      return Number(element.textContent.replace(/[合計：|,|円|\n]/g, ''))
-    })
-  }
-
-  const userAgent = new UserAgent({
-    deviceCategory: 'desktop',
-    platform: 'MacIntel'
-  })
-
   try {
-    const browser = await launchBrowser()
+    const firestore = new Firestore()
 
-    const page = await browser.newPage()
+    const assetsCacheDocumentRef = firestore.doc(`caches/assets`)
 
-    // タブをエミュレートする
-    await page.emulate({
-      userAgent: userAgent.toString(),
-      viewport: {
-        width: 1024,
-        height: 768
-      }
-    })
+    const assetsDocumentData = await assetsCacheDocumentRef
+      .get()
+      .then(document => document.data())
 
-    // ログインページへ遷移する
-    await page.goto('https://moneyforward.com/users/sign_in', {
-      waitUntil: 'domcontentloaded'
-    })
+    if (assetsDocumentData == undefined) return next(Boom.internal())
 
-    // ログイン情報を入力する
-    await page.type('input[type="email"]', process.env.MONEYFORWARD_EMAIL)
-    await page.type('input[type="password"]', process.env.MONEYFORWARD_PASSWORD)
-
-    // ログインを実行する
-    await Promise.all([
-      page.click('input[type="submit"]'),
-      page.waitForNavigation({ waitUntil: 'networkidle0' })
-    ])
-
-    // 資産内訳ページへ遷移する
-    await page.goto('https://moneyforward.com/bs/portfolio', {
-      waitUntil: 'domcontentloaded'
-    })
-
-    // 金額を取得する
-    const deposit = await getAmountFromPage(page, depositSelector)
-    const equity = await getAmountFromPage(page, equitySelector)
-    const mutualFund = await getAmountFromPage(page, mutualFundSelector)
-    const pension = await getAmountFromPage(page, pensionSelector)
-    const point = await getAmountFromPage(page, pointSelector)
-
-    await page.close()
-
-    await closeBrowser(browser)
-
-    const photon = new Photon()
-
-    await photon.connect()
-
-    const createdAssets = await photon.assets.create({
-      data: {
-        currency: deposit,
-        stockSpot: equity,
-        investmentTrust: mutualFund,
-        pension: pension,
-        point: point
-      }
-    })
-
-    await photon.disconnect()
-
-    const packedAssets = await assetsSerializer.pack(createdAssets)
-
-    res.json({
-      ...packedAssets
-    })
+    res.json(JSON.parse(assetsDocumentData.json).documents[0])
   } catch (error) {
-    console.error(error)
-
-    return next(Boom.internal())
+    return next(Boom.internal(error.message))
   }
 }
 
 const controller = {
-  index,
-  update
+  index
 }
 
 export { controller }

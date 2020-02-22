@@ -1,11 +1,12 @@
-import { Asset } from '@prisma/photon'
 import { createDayjs } from '../utilities'
+import { AssetDocumentModel } from '../models'
+import { Timestamp } from '@google-cloud/firestore'
 
-export const pack = async (assets: Asset) => {
+export const pack = async (assets: AssetDocumentModel<Timestamp>) => {
   return (await packMany([assets]))[0]
 }
 
-export const packMany = async (assets: Asset[]) => {
+export const packMany = async (assets: AssetDocumentModel<Timestamp>[]) => {
   return assets.map(value => {
     return {
       assets: [
@@ -16,12 +17,12 @@ export const packMany = async (assets: Asset[]) => {
         },
         {
           type: 'stock_spot',
-          amount: value.stockSpot,
+          amount: value.stock_spot,
           currency: 'JPY'
         },
         {
           type: 'investment_trust',
-          amount: value.investmentTrust,
+          amount: value.investment_trust,
           currency: 'JPY'
         },
         {
@@ -35,7 +36,7 @@ export const packMany = async (assets: Asset[]) => {
           currency: 'JPY'
         }
       ],
-      updated_at: createDayjs(value.createdAt.toString()).format()
+      updated_at: createDayjs(value.updated_at.toDate().toString()).format()
     }
   })
 }

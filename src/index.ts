@@ -4,11 +4,13 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
-import dotenv from 'dotenv'
-import { notFoundHandler, errorHandler } from './middlewares/index'
+import { notFoundHandler, errorHandler } from './middlewares'
+import { loadEnvironmentVariables } from './utilities'
 import { router } from './router'
 
-if (process.env.NODE_ENV !== 'production') dotenv.config()
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  loadEnvironmentVariables('.env.development.yaml')
+}
 
 const app = express()
 const port = process.env.PORT || 3000

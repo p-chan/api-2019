@@ -1,0 +1,5 @@
+cron:
+  - description: '12時間ごとに資産情報を更新する'
+    url: /tasks/update_assets
+    schedule: every 12 hours from 00:00 to 23:59
+    timezone: Asia/Tokyo

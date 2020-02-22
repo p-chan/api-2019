@@ -3,7 +3,10 @@ node_modules
 
 # environment
 .env*
-!.env.example
+!.env.example.yaml
+
+# google application credentials
+google-application-credentials.json
 
 # logs
 *.log
