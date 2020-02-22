@@ -57,26 +57,6 @@ paths:
                   - updated_at
       operationId: get-assets
       description: 全ての資産情報を取得します。
-    patch:
-      summary: 全ての資産情報を更新する
-      tags:
-        - assets
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  assets:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/assets'
-                required:
-                  - assets
-      operationId: patch-assets
-      description: 全ての資産情報を更新します。
   /identification:
     get:
       summary: 識別情報を取得する
