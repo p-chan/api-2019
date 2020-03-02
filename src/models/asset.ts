@@ -1,4 +1,4 @@
-import { FieldValue, Timestamp } from '@google-cloud/firestore'
+import { FieldValue } from '@google-cloud/firestore'
 
 import {
   YaminabeMoneyforwardAssets,

@@ -2,10 +2,6 @@ import { createDayjs } from '../utilities'
 import { AssetDocumentModel } from '../models'
 import { Timestamp } from '@google-cloud/firestore'
 
-export const pack = async (assets: AssetDocumentModel<Timestamp>) => {
-  return (await packMany([assets]))[0]
-}
-
 export const packMany = async (assets: AssetDocumentModel<Timestamp>[]) => {
   return assets.map(value => {
     return {
@@ -41,9 +37,13 @@ export const packMany = async (assets: AssetDocumentModel<Timestamp>[]) => {
   })
 }
 
+export const pack = async (assets: AssetDocumentModel<Timestamp>) => {
+  return (await packMany([assets]))[0]
+}
+
 const serializer = {
-  pack,
-  packMany
+  packMany,
+  pack
 }
 
 export { serializer }
